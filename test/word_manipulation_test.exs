@@ -8,4 +8,9 @@ defmodule WordManipulationTest do
     assert WordManipulation.replace_letter("hello", "y", 4) == "helly"
     assert WordManipulation.replace_letter("hello", "y", 5) == "error"
   end
+
+  test "finds if there's a letter in a word" do
+    assert WordManipulation.has_letter?("hello", "h") == true
+    assert WordManipulation.has_letter?("hello", "v") == false
+  end
 end

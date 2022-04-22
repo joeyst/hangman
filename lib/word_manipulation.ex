@@ -11,6 +11,10 @@ defmodule WordManipulation do
         String.slice(word, 0, index) <> letter <> String.slice(word, index+1, String.length(word))
     end
   end
+
+  def has_letter?(word, letter) do
+    Enum.any?(0..String.length(word)-1, fn(x) -> String.at(word, x) == letter end)
+  end
 end
 
 word = "hello"
