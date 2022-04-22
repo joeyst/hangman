@@ -13,4 +13,16 @@ defmodule WordManipulationTest do
     assert WordManipulation.has_letter?("hello", "h") == true
     assert WordManipulation.has_letter?("hello", "v") == false
   end
+
+  test "replaces underscore with letter from word, and index" do
+    assert WordManipulation.copy_over_letter("hello", "_____", 3) == "___l_"
+    assert WordManipulation.copy_over_letter("hello", "_____", 0) == "h____"
+    assert WordManipulation.copy_over_letter("hello", "_____", 4) == "____o"
+    assert WordManipulation.copy_over_letter("hello", "_____", 5) == "error"
+  end
+
+  @tag :skip
+  test "replaces all instances of letter in a word" do
+    
+  end
 end

@@ -15,6 +15,10 @@ defmodule WordManipulation do
   def has_letter?(word, letter) do
     Enum.any?(0..String.length(word)-1, fn(x) -> String.at(word, x) == letter end)
   end
+
+  def copy_over_letter(word_with_letter, word_without_letter, index) do
+    WordManipulation.replace_letter(word_without_letter, String.at(word_with_letter, index), index)
+  end
 end
 
 word = "hello"
