@@ -19,6 +19,10 @@ defmodule WordManipulation do
   def copy_over_letter(word_with_letter, word_without_letter, index) do
     WordManipulation.replace_letter(word_without_letter, String.at(word_with_letter, index), index)
   end
+
+  def copy_over_all(word_with_letters, word_without_letters, letter) do
+
+  end
 end
 
 word = "hello"

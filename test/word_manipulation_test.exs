@@ -21,8 +21,8 @@ defmodule WordManipulationTest do
     assert WordManipulation.copy_over_letter("hello", "_____", 5) == "error"
   end
 
-  @tag :skip
-  test "replaces all instances of letter in a word" do
-    
+  test "copies over all instances of a letter" do
+    assert WordManipulation.copy_over_all("hello", "_____", "h") == "h____"
+    assert WordManipulation.copy_over_all("hello", "_____", "l") == "__ll_"
   end
 end
