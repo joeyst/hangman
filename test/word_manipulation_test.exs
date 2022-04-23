@@ -19,10 +19,18 @@ defmodule WordManipulationTest do
     assert WordManipulation.copy_over_letter("hello", "_____", 0) == "h____"
     assert WordManipulation.copy_over_letter("hello", "_____", 4) == "____o"
     assert WordManipulation.copy_over_letter("hello", "_____", 5) == "error"
+    assert WordManipulation.copy_over_letter("hello", "h____", 2) == "h_l__"
   end
 
   test "copies over all instances of a letter" do
     assert WordManipulation.copy_over_all("hello", "_____", "h") == "h____"
     assert WordManipulation.copy_over_all("hello", "_____", "l") == "__ll_"
+    assert WordManipulation.copy_over_all("hello", "abcde", "e") == "aecde"
+  end
+
+  test "checks if the word is complete" do
+    assert WordManipulation.complete?("_____") == false
+    assert WordManipulation.complete?("h___o") == false
+    assert WordManipulation.complete?("hello") == true
   end
 end

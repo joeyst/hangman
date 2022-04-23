@@ -16,7 +16,7 @@ defmodule Hangman do
     :world
   end
 end
-
+"""
 word = "hello"
 word_with_unguessed_letters = "_____"
 guess = "h"
@@ -38,3 +38,4 @@ IO.puts "replacing 0th index: " <> replace_letter.(word, guess, 0)
 IO.puts "replacing DNE index: " <> replace_letter.(word, guess, 5)
 IO.puts "replacing last index: " <> replace_letter.(word, guess, 4)
 IO.puts "replacing middle index: " <> replace_letter.(word, guess, 3)
+"""
