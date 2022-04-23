@@ -63,6 +63,14 @@ defmodule WordManipulation do
     MapSet.member?(set_of_already_guessed_letter, letter)
   end
 
+  def convert_word_with_letters_to_underscores(word, index\\0, accumulator\\"") do
+    if (index < String.length(word)) do
+      convert_word_with_letters_to_underscores(word, index+1, accumulator<>"_")
+    else
+      accumulator
+    end
+  end
+
   def guess_until_complete(secret_word, word_without_letters, incorrect_guesses\\0, set_of_already_guessed_letter\\MapSet.new()) do
     if (incorrect_guesses == 6) do
       WordManipulation.display_loss(secret_word, incorrect_guesses)
@@ -82,4 +90,7 @@ defmodule WordManipulation do
   end
 end
 
-WordManipulation.guess_until_complete("phoenix", "_______")
+word_bank = MapSet.new(["phoenix", "elixir", "programming", "random", "words"])
+word = Enum.random(word_bank)
+
+WordManipulation.guess_until_complete(word, WordManipulation.convert_word_with_letters_to_underscores(word))
