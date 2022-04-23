@@ -12,6 +12,7 @@ defmodule WordManipulationTest do
   test "finds if there's a letter in a word" do
     assert WordManipulation.has_letter?("hello", "h") == true
     assert WordManipulation.has_letter?("hello", "v") == false
+    assert WordManipulation.has_letter?("phoenix", "h") == true
   end
 
   test "replaces underscore with letter from word, and index" do
