@@ -44,28 +44,38 @@ defmodule WordManipulation do
   def display_loss(word, incorrect_guesses) do
     IO.puts "You failed to guess the word!"
     IO.puts "It was: " <> word
-    IO.puts "Incorrect guessed: " <> "#{incorrect_guesses}"
+    IO.puts "Incorrect guesses: " <> "#{incorrect_guesses}"
   end
 
-  def display_word_and_get_guess(word_without_letters, incorrect_guesses) do
+  def display_word_and_get_guess(word_without_letters, incorrect_guesses, set_of_already_guessed_letter) do
     IO.puts "Word: " <> word_without_letters
     IO.puts "Incorrect guesses: " <> "#{incorrect_guesses}"
-    String.trim(IO.gets "Enter guess: ")
+    guess = String.trim(IO.gets "Enter guess: ")
+    if WordManipulation.letter_already_guessed?(guess, set_of_already_guessed_letter) do
+      IO.puts "Letter already guessed."
+      display_word_and_get_guess(word_without_letters, incorrect_guesses, set_of_already_guessed_letter)
+    else
+      guess
+    end
   end
 
-  def guess_until_complete(secret_word, word_without_letters, incorrect_guesses\\0) do
+  def letter_already_guessed?(letter, set_of_already_guessed_letter) do
+    MapSet.member?(set_of_already_guessed_letter, letter)
+  end
+
+  def guess_until_complete(secret_word, word_without_letters, incorrect_guesses\\0, set_of_already_guessed_letter\\MapSet.new()) do
     if (incorrect_guesses == 6) do
       WordManipulation.display_loss(secret_word, incorrect_guesses)
     else 
       if (WordManipulation.complete?(word_without_letters) == true) do
         WordManipulation.display_win(word_without_letters, incorrect_guesses)
       else 
-        guess = display_word_and_get_guess(word_without_letters, incorrect_guesses)
+        guess = display_word_and_get_guess(word_without_letters, incorrect_guesses, set_of_already_guessed_letter)
         if WordManipulation.has_letter?(secret_word, guess) == true do
           word_without_letters = WordManipulation.copy_over_all(secret_word, word_without_letters, guess)
-          guess_until_complete(secret_word, word_without_letters, incorrect_guesses)
+          guess_until_complete(secret_word, word_without_letters, incorrect_guesses, set_of_already_guessed_letter |> MapSet.put(guess))
         else
-          guess_until_complete(secret_word, word_without_letters, incorrect_guesses + 1)
+          guess_until_complete(secret_word, word_without_letters, incorrect_guesses + 1, set_of_already_guessed_letter |> MapSet.put(guess))
         end
       end
     end
